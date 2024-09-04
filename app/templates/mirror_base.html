@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flask Mirror</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" />
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    {% block more_head %}
+    {% endblock %}
+    <style>
+        *:hover { 
+            outline:1px blue solid;
+        } 
+    </style>
+</head>
+
+<body class="has-background-white has-text-black">
+
+    <section class="hero is-fullheight">
+        <!-- Hero head: will stick at the top -->
+        <div class="hero-head">
+            <div class="columns has-text-centered">
+                <div class="column">
+                    top_left
+                </div>
+                <div class="column">
+                    top_center
+                </div>
+                <div class="column">
+                    top_right
+                </div>
+            </div>
+        </div>
+      
+        <!-- Hero content: will be in the middle -->
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            {% block center_center %}
+            {% endblock %}
+          </div>
+        </div>
+      
+        <!-- Hero footer: will stick at the bottom -->
+        <div class="hero-foot">
+            <div class="columns has-text-centered">
+              <div class="column">
+                bottom_left
+                </div>
+                <div class="column">
+                bottom_center
+                </div> 
+                <div class="column">
+                bottom_right
+                </div>  
+            </div>
+        </div>
+      </section>
+</body>
+
+</html>

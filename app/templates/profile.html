@@ -1,0 +1,112 @@
+{% extends "admin_base.html" %}
+
+{% block content %}
+<h1 class="title">
+  Welcome, {{ user.name }}!
+</h1>
+
+<div class="box">
+    <!-- Display User Information -->
+    <div class="columns is-vcentered is-half">
+        <div class="column is-one-third">
+            <strong>Name:</strong>
+        </div>
+        <div class="column has-text-left">
+            {{ user.name }}
+        </div>
+    </div>
+    <div class="columns is-vcentered">
+        <div class="column is-one-third">
+            <strong>Email:</strong>
+        </div>
+        <div class="column has-text-left">
+            {{ user.email }}
+        </div>
+    </div>
+    <div class="columns is-vcentered">
+        <div class="column is-one-third">
+            <strong>Role:</strong>
+        </div>
+        <div class="column has-text-left">
+            {{ user.role }}
+        </div>
+    </div>
+    {% if user.name == user.email %}
+    <div class="columns is-vcentered">
+        <div class="column is-full">
+            <p>Please set your name.</p>
+        </div>
+    </div>
+    {% endif %} 
+
+    {% if user.role == 'pending' %}
+    <div class="columns is-vcentered">
+        <div class="column is-full">
+            <p>Please wait for the admin to approve your login.</p>>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+  <div class="container">
+      <div class="box">
+      <button id="edit-button" class="button is-primary">Edit Profile</button>
+      <div id="edit-form" class="is-hidden">
+        <form method="POST" action="{{ url_for('auth.profile') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Name</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="text" name="name" value="{{ user.name }}" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label">Email</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input" type="email" name="email" value="{{ user.email }}" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-link" type="submit">Save Changes</button>
+                </div>
+                <div class="control">
+                    <a class="button is-link is-light" href="{{ url_for('auth.profile') }}">Cancel</a>
+                </div>
+            </div>
+      </form>
+    </div>
+    </div>
+  </div>
+
+<script>
+    document.getElementById('edit-button').addEventListener('click', function() {
+        var editForm = document.getElementById('edit-form');
+        var editButton = document.getElementById('edit-button');
+        if (editForm.classList.contains('is-hidden')) {
+            editForm.classList.remove('is-hidden');
+        } else {
+            editForm.classList.add('is-hidden');
+        }
+        if (editButton.classList.contains('is-hidden')) {
+            editButton.classList.remove('is-hidden');
+        } else {
+            editButton.classList.add('is-hidden');
+        }
+    });
+</script>
+
+{% endblock %}

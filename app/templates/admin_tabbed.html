@@ -1,0 +1,62 @@
+{% extends "admin_base.html" %}
+
+{% block more_head %}    
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+
+{% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">Admin Dashboard</h1>
+
+        <div class="tabs is-boxed">
+            <ul>
+                <li class="is-active" id="tab1-link"><a>Users</a></li>
+                <li id="tab2-link"><a>Modules</a></li>
+                <li id="tab3-link"><a>Settings</a></li>
+            </ul>
+        </div>
+
+        <div id="tab1-content" class="">
+            <h2 class="subtitle">Manage Users</h2>
+            <!-- Content for managing users -->
+            {% include 'admin_users.html' %}
+        </div>
+
+        <div id="tab2-content" class="is-hidden">
+            <h2 class="subtitle">Manage Modules</h2>
+            <!-- Content for managing courses -->
+            {% include 'admin_modules.html' %}
+        </div>
+
+        <div id="tab3-content" class="is-hidden">
+            <h2 class="subtitle">Manage Settings</h2>
+            <!-- Content for settings -->
+            {% include 'admin_settings.html' %}
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabs = document.querySelectorAll('.tabs ul li');
+        const contents = document.querySelectorAll('[id$="-content"]');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(item => item.classList.remove('is-active'));
+                tab.classList.add('is-active');
+
+                contents.forEach(content => content.classList.add('is-hidden'));
+                document.getElementById(tab.id.replace('-link', '-content')).classList.remove('is-hidden');
+            });
+        });
+    });
+</script>
+
+{% endblock %}
